@@ -43,6 +43,10 @@ public class RotatedSortedArraySearch {
     return binarySearch(nums, target, pivot, nums.length);
   }
 
+ /*
+  Function to get pivot.
+  For array 3,4,5,6,1,2 this function will return 3 (index of 6)
+ */
   private static int findPivot(int[] nums, int low, int high) {
     if (high < low)
       return -1;
