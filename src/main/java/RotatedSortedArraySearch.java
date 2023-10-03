@@ -47,23 +47,36 @@ public class RotatedSortedArraySearch {
   Function to get pivot.
   For array 3,4,5,6,1,2 this function will return 3 (index of 6)
  */
-  private static int findPivot(int[] nums, int low, int high) {
-    if (high < low)
-      return -1;
-    if (high == low)
-      return low;
+  private static int findPivot(int[] nums, int startIndex, int endIndex)
+  {
+      if (nums.length == 1)
+      {
+          return nums[0];
+      }
 
-    int mid = (high + low)/2;
-    if (mid < high && nums[mid] > nums[mid + 1])
-      return mid + 1;
+      int midIndex = (startIndex + endIndex) / 2;
+      if (midIndex > 0 && midIndex < nums.length - 1 && nums[midIndex] < nums[midIndex - 1]
+              && nums[midIndex] < nums[midIndex + 1])
+      {
+          return midIndex;
+      }
 
-    if (mid > low && nums[mid] < nums[mid - 1])
-      return mid - 1;
+      if (midIndex == 0 && midIndex < nums.length - 1 && nums[midIndex] < nums[midIndex + 1])
+      {
+          return midIndex;
+      }
 
-    if (nums[low] >= nums[mid])
-      return findPivot(nums, low, mid-1);
+      if (midIndex == nums.length - 1 && nums[midIndex] < nums[0] && nums[midIndex] < nums[midIndex-1])
+      {
+          return midIndex;
+      }
 
-    return findPivot(nums, mid+1, high);
+      if (nums[startIndex] > nums[midIndex] || nums[startIndex] < nums[endIndex-1])
+      {
+          return searchPivotIndex(nums, startIndex, midIndex-1);
+      }
+
+      return searchPivotIndex(nums, midIndex+1, endIndex);
   }
 
   private static int binarySearch(int[] nums, int target, int low, int high) {
